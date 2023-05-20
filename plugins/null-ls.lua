@@ -19,12 +19,15 @@ return {
   opts = function(_, config)
     local null_ls = require("null-ls")
 
-    local path = vim.fn.getcwd()
-    local project_name = vim.fn.fnamemodify(path, ":t")
-    local ok, project_file = pcall(require, "user.project." .. project_name)
+    -- local path = vim.fn.getcwd()
+    -- local project_name = vim.fn.fnamemodify(path, ":t")
+    -- local ok, project_file = pcall(require, "user.project." .. project_name)
+    local ok, project_file = require("user.utils").getProjectFile()
     local project_sources = {}
     if ok then
-      project_sources = project_file.sources(null_ls, path)
+      if project_file["sources"] ~= nil then
+        project_sources = project_file.sources(null_ls, path)
+      end
     end
 
     local diagnostics = null_ls.builtins.diagnostics
