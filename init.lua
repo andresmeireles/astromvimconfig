@@ -1,1 +1,3 @@
-return {}
+return {
+  colorscheme = "tokyonight-day"
+}
